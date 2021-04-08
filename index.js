@@ -19,8 +19,8 @@ const createAPI = (baseURL = 'https://itunes.apple.com/br/') => {
   }
 }
 
-const performCheck = (props) => {
-  const { version = DeviceInfo.getVersion(), bundleId = DeviceInfo.getBundleId() } = props || {}
+const performCheck = (props = {}) => {
+  const { version = DeviceInfo.getVersion(), bundleId = DeviceInfo.getBundleId() } = props
   let updateIsAvailable = false
   const api = createAPI()
 
@@ -76,8 +76,8 @@ const showUpgradePrompt = (appId, {
   )
 }
 
-const promptUser = (defaultOptions = {}, versionSpecificOptions = [], bundleId) => {
-  performCheck(bundleId).then(sirenResult => {
+const promptUser = (defaultOptions = {}, versionSpecificOptions = [], checkProps = {}) => {
+  performCheck(checkProps).then(sirenResult => {
     if (sirenResult.updateIsAvailable) {
       const options =
           versionSpecificOptions.find(o => o.localVersion === DeviceInfo.getVersion())
