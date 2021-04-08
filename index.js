@@ -40,16 +40,20 @@ const performCheck = (props = {}) => {
 }
 
 const attemptUpgrade = async (appId) => {
-  // failover if itunes - a bit excessive
-  const appStoreURI = `itms-apps://apps.apple.com/app/id${appId}?mt=8`
-  const appStoreURL = `https://apps.apple.com/app/id${appId}?mt=8`
+  try {
+    // failover if itunes - a bit excessive
+    const appStoreURI = `itms-apps://apps.apple.com/app/id${appId}?mt=8`
+    const appStoreURL = `https://apps.apple.com/app/id${appId}?mt=8`
 
-  const supported = await Linking.canOpenURL(appStoreURI);
-  
-  if (supported) {
-    return await Linking.openURL(appStoreURI)
-  } else {
-    return await Linking.openURL(appStoreURL)
+    const supported = await Linking.canOpenURL(appStoreURI);
+
+    if (supported) {
+      return await Linking.openURL(appStoreURI)
+    } else {
+      return await Linking.openURL(appStoreURL)
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -61,7 +65,7 @@ const showUpgradePrompt = (appId, {
   forceUpgrade = false
 }) => {
   const buttons = [{
-    text: buttonUpgradeText, onPress: () => attemptUpgrade(appId)
+    text: buttonUpgradeText, onPress: () => attemptUpgrade(appId).catch(error => console.log(error)
   }]
 
   if (forceUpgrade === false) {
