@@ -77,15 +77,11 @@ const showUpgradePrompt = (appId, {
 }
 
 const promptUser = (defaultOptions = {}, versionSpecificOptions = [], checkProps = {}) => {
-  performCheck(checkProps).then(sirenResult => {
-    if (sirenResult.updateIsAvailable) {
-      const options =
-          versionSpecificOptions.find(o => o.localVersion === DeviceInfo.getVersion())
-          || defaultOptions
+    const options =
+        versionSpecificOptions.find(o => o.localVersion === DeviceInfo.getVersion())
+        || defaultOptions
 
-      showUpgradePrompt(sirenResult.trackId, options)
-    }
-  })
+    showUpgradePrompt(sirenResult.trackId, options)
 }
 
 export default {
