@@ -39,18 +39,18 @@ const performCheck = (props = {}) => {
   })
 }
 
-const attemptUpgrade = (appId) => {
+const attemptUpgrade = async (appId) => {
   // failover if itunes - a bit excessive
   const appStoreURI = `itms-apps://apps.apple.com/app/id${appId}?mt=8`
   const appStoreURL = `https://apps.apple.com/app/id${appId}?mt=8`
 
-  Linking.canOpenURL(appStoreURI).then(supported => {
-    if (supported) {
-      Linking.openURL(appStoreURI)
-    } else {
-      Linking.openURL(appStoreURL)
-    }
-  })
+  const supported = await Linking.canOpenURL(appStoreURI);
+  
+  if (supported) {
+    Linking.openURL(appStoreURI)
+  } else {
+    Linking.openURL(appStoreURL)
+  }
 }
 
 const showUpgradePrompt = (appId, {
