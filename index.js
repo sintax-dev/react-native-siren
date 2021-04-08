@@ -47,9 +47,9 @@ const attemptUpgrade = async (appId) => {
   const supported = await Linking.canOpenURL(appStoreURI);
   
   if (supported) {
-    Linking.openURL(appStoreURI)
+    return await Linking.openURL(appStoreURI)
   } else {
-    Linking.openURL(appStoreURL)
+    return await Linking.openURL(appStoreURL)
   }
 }
 
