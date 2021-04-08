@@ -3,7 +3,7 @@ import { Alert, Linking } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import apisauce from 'apisauce'
 
-const createAPI = (baseURL = 'https://itunes.apple.com/') => {
+const createAPI = (baseURL = 'https://itunes.apple.com/br/') => {
   const api = apisauce.create({
     baseURL,
     headers: {
