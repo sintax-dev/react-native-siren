@@ -19,7 +19,8 @@ const createAPI = (baseURL = 'https://itunes.apple.com/br/') => {
   }
 }
 
-const performCheck = (bundleId = DeviceInfo.getBundleId()) => {
+const performCheck = (props) => {
+  const { version = DeviceInfo.getVersion(), bundleId = DeviceInfo.getBundleId() } = props || {}
   let updateIsAvailable = false
   const api = createAPI()
 
@@ -31,7 +32,7 @@ const performCheck = (bundleId = DeviceInfo.getBundleId()) => {
       latestInfo = response.data.results[0]
       // check for version difference
 
-      updateIsAvailable = latestInfo.version !== DeviceInfo.getVersion()
+      updateIsAvailable = latestInfo.version !== version
     }
 
     return {updateIsAvailable, ...latestInfo}
