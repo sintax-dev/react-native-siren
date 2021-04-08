@@ -65,7 +65,7 @@ const showUpgradePrompt = (appId, {
   forceUpgrade = false
 }) => {
   const buttons = [{
-    text: buttonUpgradeText, onPress: () => attemptUpgrade(appId).catch(error => console.log(error)
+    text: buttonUpgradeText, onPress: () => attemptUpgrade(appId).catch(error => console.log(error))
   }]
 
   if (forceUpgrade === false) {
